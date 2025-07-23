@@ -1,0 +1,107 @@
+.basketContainer {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+}
+
+.basketTitle {
+    padding: 12px 0;
+    text-align: center;
+    font-size: 24px;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.orderCostContainer {
+    padding: 0 8px;
+}
+
+.orderContainer {
+    /* border: 1px solid rgba(128, 128, 128, 0.2); */
+}
+
+.line {
+    background-color: rgba(128, 128, 128, 0.2);
+    height: 1px;
+}
+
+.costContainer {
+    color: rgba(128, 128, 128);
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+}
+
+.costSubtotalContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.finalCostContainer {
+    padding-top: 8px;
+}
+
+.titleContainer {
+    padding: 0 24px
+}
+
+.rating {
+    color: #FF8000;
+}
+
+.dishContainer {
+    position: relative;
+    margin: 12px 24px;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    padding: 12px;
+}
+
+.dishPrice {
+    color: #FF8000;
+}
+
+.dishContainer a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 42px;
+    width: 42px;
+    color: #FF8000;
+    font-weight: 500;
+    font-size: 65px;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dishContainer a:hover {
+    cursor: pointer;
+}
+
+.menuBarContainer {
+    background-color: #F7F6F1;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 24px 0;
+}
+
+.menuBarContainer a {
+    text-decoration: none;
+    color: black;
+}
+
+.pizzaSaladContainer {
+    padding: 12px 0;
+    margin: 12px 24px;
+}
+
+.pizzaSaladContainer a {
+    padding: 0 12px;
+    font-weight: 600;
+    font-size: 24px;
+}

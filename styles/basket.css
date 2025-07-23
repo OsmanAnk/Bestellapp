@@ -1,0 +1,29 @@
+.orderContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderContainerStyle {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderContainerAmountPrice {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.orderContainerAmount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.orderContainerAmount p {
+    color: rgb(255, 128, 0);
+    font-size: 34px;
+    margin: 0 8px;
+    cursor: pointer;
+}
+
