@@ -47,7 +47,7 @@ function renderPizzaDishes() {
     pizzaDishes.innerHTML = "";
 
     for (let indexDishes = 0; indexDishes < myDishes.Pizza.length; indexDishes++) {
-        pizzaDishes.innerHTML += getPizzaDishes(indexDishes);
+        pizzaDishes.innerHTML += getPizzaDishes("Pizza", indexDishes);
     }
 }
 
@@ -61,7 +61,7 @@ function renderPastaDishes() {
     pastaDishes.innerHTML = "";
 
     for (let indexDishes = 0; indexDishes < myDishes.Pasta.length; indexDishes++) {
-        pastaDishes.innerHTML += getPastaDishes(indexDishes);
+        pastaDishes.innerHTML += getPastaDishes("Pasta", indexDishes);
     }
 }
 
@@ -75,7 +75,7 @@ function renderSaladDishes() {
     saladDishes.innerHTML = "";
 
     for (let indexDishes = 0; indexDishes < myDishes.Salad.length; indexDishes++) {
-        saladDishes.innerHTML += getSaladDishes(indexDishes);
+        saladDishes.innerHTML += getSaladDishes("Salad", indexDishes);
     }
 }
 
@@ -84,24 +84,24 @@ function toggleRespMenu() {
     document.getElementById("resp_main").classList.toggle("resp_cart_shift");
 }
 
-function addToCart(indexDishes) {
-    myDishes.Pizza[indexDishes].amount++;
+function addToCart(category, indexDishes) {
+    myDishes[category][indexDishes].amount++;
     refreshCart();
 }
 
-function decreaseAmount(indexDishes) {
-    if (myDishes.Pizza[indexDishes].amount >= 1)
-        myDishes.Pizza[indexDishes].amount--;
+function decreaseAmount(category, indexDishes) {
+    if (myDishes[category][indexDishes].amount >= 1)
+        myDishes[category][indexDishes].amount--;
     refreshCart();
 }
 
-function increaseAmount(indexDishes) {
-    myDishes.Pizza[indexDishes].amount++;
+function increaseAmount(category, indexDishes) {
+    myDishes[category][indexDishes].amount++;
     refreshCart();
 }
 
-function deleteDish(indexDishes) {
-    myDishes.Pizza[indexDishes].amount = 0;
+function deleteDish(category, indexDishes) {
+    myDishes[category][indexDishes].amount = 0;
     refreshCart();
 }
 
@@ -113,7 +113,7 @@ function refreshCart() {
         let pizza = myDishes.Pizza[i];
 
         if (pizza.amount > 0) {
-            orderContainer.innerHTML += cartContent(i);
+            orderContainer.innerHTML += cartContent("Pizza", i);
         }
     }
 
@@ -139,7 +139,6 @@ function subtotalCalc() {
 
 
 //to-do
-//Object-Pfad verallgemeinern (Pizza und Salat in einem)
-//Zwischensumme hinzu
+//Object-Pfad verallgemeinern (Pizza, Salat, Pasta in einem)
 //Lieferkosten einberechnen (switch)
 //-> Gesamtsumme berechnen

@@ -25,17 +25,17 @@ function basketContent() {
             `
 }
 
-function cartContent(indexDishes) {
+function cartContent(category, indexDishes) {
     return `    <div class="orderContainerStyle">
-                    <p class="orderContainerName">${myDishes.Pizza[indexDishes].name}</p>
+                    <p class="orderContainerName">${myDishes[category][indexDishes].name}</p>
                     <div class="orderContainerAmountPrice">
                         <div class="orderContainerAmount">
-                            <p onclick="decreaseAmount(${indexDishes})">-</p>
-                            <span>${myDishes.Pizza[indexDishes].amount} x </span>
-                            <p onclick="increaseAmount(${indexDishes})">+</p>
+                            <p onclick="decreaseAmount('${category}', ${indexDishes})">-</p>
+                            <span>${myDishes[category][indexDishes].amount} x </span>
+                            <p onclick="increaseAmount('${category}', ${indexDishes})">+</p>
                         </div>
-                        <p>${myDishes.Pizza[indexDishes].price * myDishes.Pizza[indexDishes].amount} €</p>
-                        <img onclick="deleteDish(${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
+                        <p>${(myDishes[category][indexDishes].price * myDishes[category][indexDishes].amount).toFixed(2)} €</p>
+                        <img onclick="deleteDish('${category}', ${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
                     </div>
                 </div>
             `
@@ -68,7 +68,7 @@ function titleContent() {
 function menuBarContent() {
     return `   <div class="menuBarContainer">
                     <img class="menuBarImg" src="./assets/img/menuBar_img.png" alt="">
-                    <a href="#pizzaContent">Hauptgerichte</a>
+                    <a href="#pizzaContent">Pizzen</a>
                     <a href="#pastaContent">Pasta</a>
                     <a href="#saladContent">Salate</a>
                 </div>
@@ -83,18 +83,18 @@ function pizzaContent() {
             `
 }
 
-function getPizzaDishes(indexDishes) {
+function getPizzaDishes(category, indexDishes) {
     return `   <div class="dishContainer">
                     <div class="dishData">
-                        <h2>${myDishes.Pizza[indexDishes].name}</h2>
+                        <h2>${myDishes[category][indexDishes].name}</h2>
 
-                        <div>${myDishes.Pizza[indexDishes].description}</div>
+                        <div>${myDishes[category][indexDishes].description}</div>
 
                         <br>
 
-                        <div class="dishPrice">${myDishes.Pizza[indexDishes].price.toFixed(2)} €</div>
+                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2)} €</div>
                     </div>
-                    <a onclick="addToCart(${indexDishes})">+</a>
+                    <a onclick="addToCart('${category}', ${indexDishes})">+</a>
                 </div>
             `
 }
@@ -107,18 +107,18 @@ function pastaContent() {
             `
 }
 
-function getPastaDishes(indexDishes) {
+function getPastaDishes(category, indexDishes) {
     return `   <div class="dishContainer">
                     <div class="dishData">
-                        <h2>${myDishes.Pasta[indexDishes].name}</h2>
+                        <h2>${myDishes[category][indexDishes].name}</h2>
 
-                        <div>${myDishes.Pasta[indexDishes].description}</div>
+                        <div>${myDishes[category][indexDishes].description}</div>
 
                         <br>
 
-                        <div class="dishPrice">${myDishes.Pasta[indexDishes].price.toFixed(2)} €</div>
+                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2)} €</div>
                     </div>
-                    <a>+</a>
+                    <a onclick="addToCart('${category}', ${indexDishes})">+</a>
                 </div>
             `
 }
@@ -131,19 +131,18 @@ function saladContent() {
             `
 }
 
-function getSaladDishes(indexDishes) {
+function getSaladDishes(category, indexDishes) {
     return `   <div class="dishContainer">
                     <div class="dishData">
-                        <h2>${myDishes.Salad[indexDishes].name}</h2>
+                        <h2>${myDishes[category][indexDishes].name}</h2>
 
-                        <div>${myDishes.Salad[indexDishes].description}</div>
+                        <div>${myDishes[category][indexDishes].description}</div>
 
                         <br>
 
-                        <div class="dishPrice">${myDishes.Salad[indexDishes].price.toFixed(2)} €</div>
+                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2)} €</div>
                     </div>
-                    <a>+</a>
+                    <a onclick="addToCart('${category}', ${indexDishes})">+</a>
                 </div>
             `
 }
-
