@@ -25,17 +25,17 @@ function basketContent() {
             `
 }
 
-function cartContent(category, indexDishes) {
+function cartContent(name, price, amount, indexDishes) { //umbauen! category fliegt raus
     return `    <div class="orderContainerStyle">
-                    <p class="orderContainerName">${myDishes[category][indexDishes].name}</p>
+                    <p class="orderContainerName">${name}</p>
                     <div class="orderContainerAmountPrice">
                         <div class="orderContainerAmount">
-                            <p onclick="decreaseAmount('${category}', ${indexDishes})">-</p>
-                            <span>${myDishes[category][indexDishes].amount} x </span>
-                            <p onclick="increaseAmount('${category}', ${indexDishes})">+</p>
+                            <p onclick="decreaseAmount(${indexDishes})">-</p>
+                            <span>${amount} x </span>
+                            <p onclick="increaseAmount(${indexDishes})">+</p>
                         </div>
-                        <p>${(myDishes[category][indexDishes].price * myDishes[category][indexDishes].amount).toFixed(2)} €</p>
-                        <img onclick="deleteDish('${category}', ${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
+                        <p>${(price * amount).toFixed(2)} €</p>
+                        <img onclick="deleteDish(${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
                     </div>
                 </div>
             `
@@ -44,7 +44,7 @@ function cartContent(category, indexDishes) {
 function allContent() {
     return `    <div class="allContainer">
                     <div id="titleContent"></div>
-                    <div id="menuBarContent"></div>
+                    <div id="menuBarContent"></div>                 
                     <div id="pizzaContent"></div>
                     <div id="pizzaDishContent"></div>
                     <div id="pastaContent"></div>

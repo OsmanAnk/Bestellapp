@@ -85,56 +85,71 @@ function toggleRespMenu() {
 }
 
 function addToCart(category, indexDishes) {
-    myDishes[category][indexDishes].amount++;
+    let dish = myDishes[category][indexDishes];
+
+    let cartDish = shoppingCart.amount;
+    console.log(cartDish);
+    
+
+    if (shoppingCart.amount > 0) {
+
+        increaseAmount();
+    }
+    else {
+        shoppingCart.push({
+            name: dish.name,
+            price: dish.price,
+            amount: 1
+        });
+    }
+
     refreshCart();
 }
 
-function decreaseAmount(category, indexDishes) {
-    if (myDishes[category][indexDishes].amount >= 1)
-        myDishes[category][indexDishes].amount--;
+function decreaseAmount(indexDishes) {
+    if (shoppingCart[indexDishes].amount >= 1)
+        shoppingCart[indexDishes].amount--;
     refreshCart();
 }
 
-function increaseAmount(category, indexDishes) {
-    myDishes[category][indexDishes].amount++;
+function increaseAmount(indexDishes) {
+    shoppingCart[indexDishes].amount++
     refreshCart();
 }
 
-function deleteDish(category, indexDishes) {
-    myDishes[category][indexDishes].amount = 0;
+function deleteDish(indexDishes) {
+    shoppingCart.splice(indexDishes, 1)
     refreshCart();
 }
 
 function refreshCart() {
-    let orderContainer = document.getElementById("orderContainer");
-    orderContainer.innerHTML = "";
+    let orderContainerRef = document.getElementById("orderContainer");
+    orderContainerRef.innerHTML = "";
 
-    for (let i = 0; i < myDishes.Pizza.length; i++) {
-        let pizza = myDishes.Pizza[i];
-
-        if (pizza.amount > 0) {
-            orderContainer.innerHTML += cartContent("Pizza", i);
+    for (let i = 0; i < shoppingCart.length; i++) {
+        let cart = shoppingCart[i];
+        if (cart.amount > 0) {
+            orderContainerRef.innerHTML += cartContent(cart.name, cart.price, cart.amount, i);
         }
     }
-
-    subtotalCalc();
+    // subtotalCalc();
 }
 
-function subtotalCalc() {
-    let subtotalRef = document.getElementById("subtotal");
-    subtotalRef.innerHTML = "";
-    let subtotal = 0;
+// function subtotalCalc() {
+//     let subtotalRef = document.getElementById("subtotal");
+//     subtotalRef.innerHTML = "";
+//     let subtotal = 0;
 
-    for (let i = 0; i < myDishes.Pizza.length; i++) {
-        let pizza = myDishes.Pizza[i];
+//     for (let i = 0; i < myDishes.Pizza.length; i++) {
+//         let pizza = myDishes.Pizza[i];
 
-        if (pizza.amount > 0) {
-            subtotal += pizza.price * pizza.amount;
-        }
-    }
+//         if (pizza.amount > 0) {
+//             subtotal += pizza.price * pizza.amount;
+//         }
+//     }
 
-    subtotalRef.innerHTML = subtotal.toFixed(2) + " €";
-}
+//     subtotalRef.innerHTML = subtotal.toFixed(2) + " €";
+// }
 
 
 

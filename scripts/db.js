@@ -61,29 +61,9 @@ let myDishes = {
             "amount": 0,
         }
     ],
+
+    
 }
 
 
-let shoppingCart = [
-    {
-        "name": "Pizza Caprese",
-        "price": 12.99,
-        "description": "mit frischen Tomaten, Mozzarella-Kugeln und Basilikum-Pesto",
-        "amount": 0,
-        "category": "Pizza",
-    },
-    {
-        "name": "Pizza Chicken & Broccoli",
-        "price": 12.99,
-        "description": "Teig und Mozzarella mit leckerem Broccoli und Sauce Hollandaise gebacken",
-        "amount": 0,
-        "category": "Pizza",
-    },
-    {
-        "name": "Pizza Tuna",
-        "price": 11.99,
-        "description": "mit extra viel Thunfisch und roten Zwiebeln",
-        "amount": 0,
-        "category": "Pizza",
-    },
-]
+let shoppingCart = []
