@@ -87,14 +87,12 @@ function toggleRespMenu() {
 function addToCart(category, indexDishes) {
     let dish = myDishes[category][indexDishes];
 
-    let cartDish = shoppingCart.amount;
-    console.log(cartDish);
-    
+    let shoppingcartIndex = shoppingCart.findIndex(element => element.name == dish.name)
 
-    if (shoppingCart.amount > 0) {
-
-        increaseAmount();
+    if (shoppingcartIndex !== -1) {
+        shoppingCart[shoppingcartIndex].amount++;
     }
+
     else {
         shoppingCart.push({
             name: dish.name,
@@ -132,25 +130,48 @@ function refreshCart() {
             orderContainerRef.innerHTML += cartContent(cart.name, cart.price, cart.amount, i);
         }
     }
-    // subtotalCalc();
+    subtotalCalc();
+    totalCostCalc();
 }
 
-// function subtotalCalc() {
-//     let subtotalRef = document.getElementById("subtotal");
-//     subtotalRef.innerHTML = "";
-//     let subtotal = 0;
+function subtotalCalc() {
+    let subtotalRef = document.getElementById("subtotal");
+    let subtotal = 0;
 
-//     for (let i = 0; i < myDishes.Pizza.length; i++) {
-//         let pizza = myDishes.Pizza[i];
+    for (let i = 0; i < shoppingCart.length; i++) {
+        subtotal += shoppingCart[i].amount * shoppingCart[i].price;
+    }
 
-//         if (pizza.amount > 0) {
-//             subtotal += pizza.price * pizza.amount;
-//         }
-//     }
+    subtotalRef.innerHTML = subtotal.toFixed(2) + " €";
+}
 
-//     subtotalRef.innerHTML = subtotal.toFixed(2) + " €";
-// }
+function deliveryCalc() {
 
+    let deliveryRef = document.getElementById("deliveryCost");
+    let switchBoxRef = document.getElementById("switchBox");
+
+    if (switchBoxRef.checked) {
+        deliveryRef.innerHTML = "+ 4,99€";
+    }
+    else {
+        deliveryRef.innerHTML = "0,00€";
+    }
+}
+
+function totalCostCalc() {
+    let totalCostRef = document.getElementById("totalCost");
+    let deliveryRef = document.getElementById("deliveryCost");
+    let subtotalRef = document.getElementById("subtotal");
+
+    let delivery = deliveryRef.innerText.replace(/^\D+/g, '');
+    let subtotal = subtotalRef.innerTexT.replace(/^\D+/g, '');
+
+    console.log(totalCostRef);
+    console.log(delivery);
+    console.log(subtotal);
+
+    totalCostRef.innerHTML = deliveryRef + subtotalRef;
+}
 
 
 //to-do

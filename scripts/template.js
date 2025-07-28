@@ -12,15 +12,29 @@ function basketContent() {
                     <div class="orderCostContainer">
                         <div class="orderContainer" id="orderContainer"></div>
                         <div class="line"></div>
+                        <div class="switchContainer">
+                            <span>Selber abholen</span>
+                            <label class="switch">
+                                <input type="checkbox" id="switchBox" onchange="deliveryCalc()">
+                                <span class="pickup round"></span>
+                            </label>
+                        </div>
+                        <div class="line"></div>
                         <div class="costContainer">
                             <div class="costSubtotalContainer">
                                 <div>Zwischensumme</div>
-                                <div id="subtotal"></div>
+                                <div id="subtotal">0,00€</div>
                             </div>
-                            <div>Lieferkosten</div>
+                            <div class="costSubtotalContainer">
+                                <div>Lieferkosten</div>
+                                <div id="deliveryCost">+0,00 €</div>
+                            </div>
                         </div>
-                        <div class="finalCostContainer">Gesamt</div>
-                    <div>
+                        <div class="totalCostContainer">
+                            <div>Gesamt</div>
+                            <div id="totalCost">+0,00 €</div>
+                        </div>
+                    </div>
                 </div>
             `
 }
