@@ -23,16 +23,16 @@ function basketContent() {
                         <div class="costContainer">
                             <div class="costSubtotalContainer">
                                 <div>Zwischensumme</div>
-                                <div id="subtotal">0,00€</div>
+                                <div id="subtotalCost"></div>
                             </div>
                             <div class="costSubtotalContainer">
                                 <div>Lieferkosten</div>
-                                <div id="deliveryCost">+0,00 €</div>
+                                <div id="deliveryCost"></div>
                             </div>
                         </div>
                         <div class="totalCostContainer">
                             <div>Gesamt</div>
-                            <div id="totalCost">+0,00 €</div>
+                            <div id="totalCost"></div>
                         </div>
                     </div>
                 </div>
@@ -44,9 +44,9 @@ function cartContent(name, price, amount, indexDishes) { //umbauen! category fli
                     <p class="orderContainerName">${name}</p>
                     <div class="orderContainerAmountPrice">
                         <div class="orderContainerAmount">
-                            <p onclick="decreaseAmount(${indexDishes})">-</p>
+                            <button class="amountButton" onclick="decreaseAmount(${indexDishes})">-</button>
                             <span>${amount} x </span>
-                            <p onclick="increaseAmount(${indexDishes})">+</p>
+                            <button class="amountButton" onclick="increaseAmount(${indexDishes})">+</button>
                         </div>
                         <p>${(price * amount).toFixed(2)} €</p>
                         <img onclick="deleteDish(${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
@@ -106,9 +106,9 @@ function getPizzaDishes(category, indexDishes) {
 
                         <br>
 
-                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2)} €</div>
+                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <a onclick="addToCart('${category}', ${indexDishes})">+</a>
+                    <button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
                 </div>
             `
 }
@@ -130,9 +130,9 @@ function getPastaDishes(category, indexDishes) {
 
                         <br>
 
-                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2)} €</div>
+                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <a onclick="addToCart('${category}', ${indexDishes})">+</a>
+                    <button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
                 </div>
             `
 }
@@ -154,9 +154,9 @@ function getSaladDishes(category, indexDishes) {
 
                         <br>
 
-                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2)} €</div>
+                        <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <a onclick="addToCart('${category}', ${indexDishes})">+</a>
+                    <<button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
                 </div>
             `
 }

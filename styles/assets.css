@@ -37,6 +37,10 @@
 .binIcon {
     height: 24px;
     color: #FF8000;
+}
+
+.binIcon:hover {
     cursor: pointer;
+    transform: scale(1.2);
 }
 

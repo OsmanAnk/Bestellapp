@@ -10,6 +10,7 @@ function init() {
     renderPizzaDishes();
     renderSaladDishes();
     renderPastaDishes();
+    deliveryCalc();
 }
 
 function renderHeader() {
@@ -135,46 +136,39 @@ function refreshCart() {
 }
 
 function subtotalCalc() {
-    let subtotalRef = document.getElementById("subtotal");
+    let subtotalRef = document.getElementById("subtotalCost");
     let subtotal = 0;
 
     for (let i = 0; i < shoppingCart.length; i++) {
         subtotal += shoppingCart[i].amount * shoppingCart[i].price;
     }
 
-    subtotalRef.innerHTML = subtotal.toFixed(2) + " €";
+    subtotalRef.innerHTML = subtotal.toFixed(2).replace(".", ",") + " €";
 }
 
 function deliveryCalc() {
-
     let deliveryRef = document.getElementById("deliveryCost");
     let switchBoxRef = document.getElementById("switchBox");
 
     if (switchBoxRef.checked) {
-        deliveryRef.innerHTML = "+ 4,99€";
+        deliveryRef.innerHTML = "+4,99 €";
     }
     else {
-        deliveryRef.innerHTML = "0,00€";
+        deliveryRef.innerHTML = "0,00 €";
     }
+
+    refreshCart()
 }
 
 function totalCostCalc() {
     let totalCostRef = document.getElementById("totalCost");
     let deliveryRef = document.getElementById("deliveryCost");
-    let subtotalRef = document.getElementById("subtotal");
+    let subtotalRef = document.getElementById("subtotalCost");
 
-    let delivery = deliveryRef.innerText.replace(/^\D+/g, '');
-    let subtotal = subtotalRef.innerTexT.replace(/^\D+/g, '');
+    let delivery = Number(deliveryRef.innerText.replace(/[^\d,\.]/g, '').replace(",", "."));
+    let subtotal = Number(subtotalRef.innerText.replace(/[^\d,\.]/g, '').replace(",", "."));
 
-    console.log(totalCostRef);
-    console.log(delivery);
-    console.log(subtotal);
+    let total = delivery + subtotal;
 
-    totalCostRef.innerHTML = deliveryRef + subtotalRef;
+    totalCostRef.innerHTML = total.toFixed(2).replace(".", ",")+ " €"
 }
-
-
-//to-do
-//Object-Pfad verallgemeinern (Pizza, Salat, Pasta in einem)
-//Lieferkosten einberechnen (switch)
-//-> Gesamtsumme berechnen
