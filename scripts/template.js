@@ -13,7 +13,7 @@ function basketContent() {
                         <div class="orderContainer" id="orderContainer"></div>
                         <div class="line"></div>
                         <div class="switchContainer">
-                            <span>Selber abholen</span>
+                            <span>Liefern lassen</span>
                             <label class="switch">
                                 <input type="checkbox" id="switchBox" onchange="deliveryCalc()">
                                 <span class="pickup round"></span>
@@ -26,20 +26,23 @@ function basketContent() {
                                 <div id="subtotalCost"></div>
                             </div>
                             <div class="costSubtotalContainer">
-                                <div>Lieferkosten</div>
+                                <div>Belieferkosten</div>
                                 <div id="deliveryCost"></div>
                             </div>
                         </div>
                         <div class="totalCostContainer">
                             <div>Gesamt</div>
-                            <div id="totalCost"></div>
+                            <div id="totalCost"></div>                       
                         </div>
+                        <div class="line"></div>     
+                        <button class="orderButton" onclick="orderAndEmptyCart()">Jetzt bestellen</button>
+                        <div class="orderMessage" id="orderMessage"></div>
                     </div>
                 </div>
             `
 }
 
-function cartContent(name, price, amount, indexDishes) { //umbauen! category fliegt raus
+function cartContent(name, price, amount, indexDishes) {
     return `    <div class="orderContainerStyle">
                     <p class="orderContainerName">${name}</p>
                     <div class="orderContainerAmountPrice">
@@ -57,14 +60,17 @@ function cartContent(name, price, amount, indexDishes) { //umbauen! category fli
 
 function allContent() {
     return `    <div class="allContainer">
-                    <div id="titleContent"></div>
-                    <div id="menuBarContent"></div>                 
-                    <div id="pizzaContent"></div>
-                    <div id="pizzaDishContent"></div>
-                    <div id="pastaContent"></div>
-                    <div id="pastaDishContent"></div>
-                    <div id="saladContent"></div>
-                    <div id="saladDishContent"></div>
+                    <div class="mainContent">
+                        <div id="titleContent"></div>
+                        <div id="menuBarContent"></div>                 
+                        <div id="pizzaContent"></div>
+                        <div id="pizzaDishContent"></div>
+                        <div id="pastaContent"></div>
+                        <div id="pastaDishContent"></div>
+                        <div id="saladContent"></div>
+                        <div id="saladDishContent"></div>
+                    </div>
+                    <div id="resp_cart" class="resp_cart_box resp_cart_closed"></div>                    
                 </div>
             `
 }

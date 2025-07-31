@@ -74,6 +74,27 @@
     cursor: pointer;
 }
 
+.addButton {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 42px;
+    width: 42px;
+    color: #FF8000;
+    font-weight: 500;
+    font-size: 58px;
+    background-color: white;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addButton:active {
+    transform: scale(0.98);
+}
+
 .amountButton {
     background-color: white;
     border: none;
@@ -84,4 +105,31 @@
 .amountButton:hover {
     cursor: pointer;
     transform: scale(1.5);
+}
+
+.orderButton {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 16px;
+    background-color: #FF8000;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+}
+
+.orderButton:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+.orderButton:active {
+    transform: scale(0.98);
+}
+
+.orderMessage {
+    width: 100%;
+    margin-top: 12px;
+    font-size: 20px;
+    text-align: center;
 }

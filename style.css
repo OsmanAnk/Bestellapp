@@ -17,23 +17,6 @@
     color: #FF8000;
 }
 
-.addButton {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 42px;
-    width: 42px;
-    color: #FF8000;
-    font-weight: 500;
-    font-size: 58px;
-    background-color: white;
-    border: 1px solid rgba(128, 128, 128, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .menuBarContainer {
     background-color: #F7F6F1;
     padding: 12px 0;

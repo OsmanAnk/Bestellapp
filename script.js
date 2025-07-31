@@ -1,7 +1,7 @@
 function init() {
     renderHeader();
-    renderBasket();
     renderContent();
+    renderBasket();
     renderTitle();
     renderMenuBar();
     renderPizza();
@@ -170,5 +170,25 @@ function totalCostCalc() {
 
     let total = delivery + subtotal;
 
-    totalCostRef.innerHTML = total.toFixed(2).replace(".", ",")+ " €"
+    totalCostRef.innerHTML = total.toFixed(2).replace(".", ",") + " €"
 }
+
+function orderAndEmptyCart() {
+    let orderMessage = document.getElementById("orderMessage");
+    orderMessage.innerHTML = "";
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        shoppingCart[i].amount = 0;
+    }
+
+    orderMessage.innerHTML = "Deine Testbestellung ist eingegangen!"
+
+    refreshCart();
+}
+
+
+//todo
+
+//läuft aus dem Container heraus, wenn alle Gerichte drin sind
+
+//Warenkorb nicht ganz sticky
