@@ -1,7 +1,7 @@
 function headerContent() {
     return `    <div class="headerContainer">
                     <img src="./assets/img/Logo.png" alt="">
-                    <img onclick="toggleRespMenu()" class="hamburger_menu" src="./assets/icons/Hamburger_icon.svg" alt="MENU"></img>
+                    <img class="hamburger_menu" src="./assets/icons/Hamburger_icon.svg" alt="MENU"></img>
                 </div>            
             `
 }
@@ -69,8 +69,9 @@ function allContent() {
                         <div id="pastaDishContent"></div>
                         <div id="saladContent"></div>
                         <div id="saladDishContent"></div>
+                        <div id="resp_Cart" class="resp_cart_box"></div>
                     </div>
-                    <div id="resp_cart" class="resp_cart_box resp_cart_closed"></div>                    
+                    <div id="Cart" class="cart_box"></div>
                 </div>
             `
 }
@@ -162,7 +163,41 @@ function getSaladDishes(category, indexDishes) {
 
                         <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <<button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
+                    <button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
                 </div>
+            `
+}
+
+function respBasketContent() {
+    return `   <div>
+                <button class="cartButton" onclick="showRespCart()">Warenkorb</button>
+                </div>
+            `
+}
+
+function overlayBasket() {
+    return `   <div>
+
+                </div>
+            `
+}
+
+
+function getDialog(name, price, amount, indexDishes) {
+    return `  <div class="dialogWindow" onclick="eventBubbling(event)"> 
+                <button class="cartButtonDialog" onclick="showRespCart()">Warenkorb</button>
+                <div class="orderContainerStyle">
+                    <p class="orderContainerName">${name}</p>
+                    <div class="orderContainerAmountPrice">
+                        <div class="orderContainerAmount">
+                            <button class="amountButton" onclick="decreaseAmount(${indexDishes})">-</button>
+                            <span>${amount} x </span>
+                            <button class="amountButton" onclick="increaseAmount(${indexDishes})">+</button>
+                        </div>
+                        <p>${(price * amount).toFixed(2)} €</p>
+                        <img onclick="deleteDish(${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
+                    </div>
+                </div>
+            </div>
             `
 }

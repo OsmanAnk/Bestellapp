@@ -11,6 +11,8 @@ function init() {
     renderSaladDishes();
     renderPastaDishes();
     deliveryCalc();
+    renderRespBasket();
+    // renderOverlay();
 }
 
 function renderHeader() {
@@ -19,12 +21,12 @@ function renderHeader() {
 }
 
 function renderBasket() {
-    let basket = document.getElementById("resp_cart");
+    let basket = document.getElementById("Cart");
     basket.innerHTML = basketContent();
 }
 
 function renderContent() {
-    let content = document.getElementById("resp_main");
+    let content = document.getElementById("mainContent");
     content.innerHTML = allContent();
 }
 
@@ -78,11 +80,6 @@ function renderSaladDishes() {
     for (let indexDishes = 0; indexDishes < myDishes.Salad.length; indexDishes++) {
         saladDishes.innerHTML += getSaladDishes("Salad", indexDishes);
     }
-}
-
-function toggleRespMenu() {
-    document.getElementById("resp_cart").classList.toggle("resp_cart_closed");
-    document.getElementById("resp_main").classList.toggle("resp_cart_shift");
 }
 
 function addToCart(category, indexDishes) {
@@ -178,17 +175,49 @@ function orderAndEmptyCart() {
     orderMessage.innerHTML = "";
 
     for (let i = 0; i < shoppingCart.length; i++) {
-        shoppingCart[i].amount = 0;
+        shoppingCart[i].amount = "";
     }
+
+    switchBoxCheck()
 
     orderMessage.innerHTML = "Deine Testbestellung ist eingegangen!"
 
     refreshCart();
 }
 
+function switchBoxCheck() {
+    let switchBox = document.getElementById("switchBox")
 
-//todo
+    if (switchBox.checked) {
+        switchBox.checked = false
+        deliveryCalc();
+    }
+}
 
-//läuft aus dem Container heraus, wenn alle Gerichte drin sind
+//hier
+function renderRespBasket() {
+    let respBasket = document.getElementById("resp_Cart");
+    respBasket.innerHTML = respBasketContent();
+}
 
-//Warenkorb nicht ganz sticky
+function showRespCart() {
+    let overlayRef = document.getElementById("overlay");
+    overlayRef.innerHTML = "";
+    toggleOverlay();
+    overlayRef.innerHTML = getDialog()
+
+}
+
+// function renderOverlay() {
+//     let respBasket = document.getElementById("resp_Cart");
+//     respBasket.innerHTML = respBasketContent();
+// }
+
+function toggleOverlay() {
+    let overlayRef = document.getElementById("overlay")
+    overlayRef.classList.toggle("d_none")
+}
+
+function eventBubbling(event) {
+    event.stopPropagation();
+}

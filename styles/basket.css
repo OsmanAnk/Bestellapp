@@ -16,10 +16,6 @@
     padding: 0 8px;
 }
 
-.orderContainer {
-    /* border: 1px solid rgba(128, 128, 128, 0.2); */
-}
-
 .line {
     background-color: rgba(128, 128, 128, 0.2);
     height: 1px;
@@ -89,6 +85,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.addButton:hover {
+    background-color: rgba(128, 128, 128, 0.05);
 }
 
 .addButton:active {
