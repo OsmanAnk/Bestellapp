@@ -1,41 +1,24 @@
 function init() {
-    renderHeader();
-    renderContent();
-    renderBasket();
-    renderTitle();
-    renderMenuBar();
+    renderContent()
     renderPizza();
     renderSalad();
     renderPasta();
-    renderPizzaDishes();
-    renderSaladDishes();
-    renderPastaDishes();
-    deliveryCalc();
     renderRespBasket();
-    // renderOverlay();
-}
-
-function renderHeader() {
-    let header = document.getElementById("header");
-    header.innerHTML = headerContent();
-}
-
-function renderBasket() {
-    let basket = document.getElementById("Cart");
-    basket.innerHTML = basketContent();
 }
 
 function renderContent() {
+    let header = document.getElementById("header");
+    header.innerHTML = headerContent();
+
     let content = document.getElementById("mainContent");
     content.innerHTML = allContent();
-}
 
-function renderTitle() {
+    let basket = document.getElementById("basket");
+    basket.innerHTML = basketContent();
+
     let title = document.getElementById("titleContent");
     title.innerHTML = titleContent();
-}
 
-function renderMenuBar() {
     let menuBar = document.getElementById("menuBarContent");
     menuBar.innerHTML = menuBarContent();
 }
@@ -43,9 +26,7 @@ function renderMenuBar() {
 function renderPizza() {
     let pizza = document.getElementById("pizzaContent")
     pizza.innerHTML = pizzaContent();
-}
 
-function renderPizzaDishes() {
     let pizzaDishes = document.getElementById("pizzaDishContent");
     pizzaDishes.innerHTML = "";
 
@@ -57,9 +38,7 @@ function renderPizzaDishes() {
 function renderPasta() {
     let pasta = document.getElementById("pastaContent")
     pasta.innerHTML = pastaContent();
-}
 
-function renderPastaDishes() {
     let pastaDishes = document.getElementById("pastaDishContent");
     pastaDishes.innerHTML = "";
 
@@ -71,9 +50,7 @@ function renderPastaDishes() {
 function renderSalad() {
     let salad = document.getElementById("saladContent")
     salad.innerHTML = saladContent();
-}
 
-function renderSaladDishes() {
     let saladDishes = document.getElementById("saladDishContent");
     saladDishes.innerHTML = "";
 
@@ -82,50 +59,54 @@ function renderSaladDishes() {
     }
 }
 
-function addToCart(category, indexDishes) {
+function addToBasket(category, indexDishes) {
     let dish = myDishes[category][indexDishes];
 
-    let shoppingcartIndex = shoppingCart.findIndex(element => element.name == dish.name)
+    let basketIndex = basket.findIndex(element => element.name == dish.name)
 
-    if (shoppingcartIndex !== -1) {
-        shoppingCart[shoppingcartIndex].amount++;
+    if (basketIndex !== -1) {
+        basket[basketIndex].amount++;
     }
 
     else {
-        shoppingCart.push({
+        basket.push({
             name: dish.name,
             price: dish.price,
             amount: 1
         });
     }
 
-    refreshCart();
+    refreshBasket();
 }
 
 function decreaseAmount(indexDishes) {
-    if (shoppingCart[indexDishes].amount >= 1)
-        shoppingCart[indexDishes].amount--;
-    refreshCart();
+    if (basket[indexDishes].amount >= 1)
+        basket[indexDishes].amount--;
+    refreshBasket();
 }
 
 function increaseAmount(indexDishes) {
-    shoppingCart[indexDishes].amount++
-    refreshCart();
+    basket[indexDishes].amount++
+    refreshBasket();
 }
 
 function deleteDish(indexDishes) {
-    shoppingCart.splice(indexDishes, 1)
-    refreshCart();
+    basket.splice(indexDishes, 1)
+    refreshBasket();
 }
 
-function refreshCart() {
+function refreshBasket() {
     let orderContainerRef = document.getElementById("orderContainer");
-    orderContainerRef.innerHTML = "";
+    let orderContainerDialogRef = document.getElementById("orderContainerDialog");
 
-    for (let i = 0; i < shoppingCart.length; i++) {
-        let cart = shoppingCart[i];
-        if (cart.amount > 0) {
-            orderContainerRef.innerHTML += cartContent(cart.name, cart.price, cart.amount, i);
+    orderContainerRef.innerHTML = "";
+    orderContainerDialogRef.innerHTML = "";
+
+    for (let i = 0; i < basket.length; i++) {
+        let item = basket[i];
+        if (item.amount > 0) {
+            orderContainerRef.innerHTML += basketData(item.name, item.price, item.amount, i);
+            orderContainerDialogRef.innerHTML += basketData(item.name, item.price, item.amount, i);
         }
     }
     subtotalCalc();
@@ -136,8 +117,8 @@ function subtotalCalc() {
     let subtotalRef = document.getElementById("subtotalCost");
     let subtotal = 0;
 
-    for (let i = 0; i < shoppingCart.length; i++) {
-        subtotal += shoppingCart[i].amount * shoppingCart[i].price;
+    for (let i = 0; i < basket.length; i++) {
+        subtotal += basket[i].amount * basket[i].price;
     }
 
     subtotalRef.innerHTML = subtotal.toFixed(2).replace(".", ",") + " €";
@@ -153,8 +134,6 @@ function deliveryCalc() {
     else {
         deliveryRef.innerHTML = "0,00 €";
     }
-
-    refreshCart()
 }
 
 function totalCostCalc() {
@@ -170,19 +149,19 @@ function totalCostCalc() {
     totalCostRef.innerHTML = total.toFixed(2).replace(".", ",") + " €"
 }
 
-function orderAndEmptyCart() {
+function orderAndEmptyBasket() {
     let orderMessage = document.getElementById("orderMessage");
     orderMessage.innerHTML = "";
 
-    for (let i = 0; i < shoppingCart.length; i++) {
-        shoppingCart[i].amount = "";
+    for (let i = 0; i < basket.length; i++) {
+        basket[i].amount = "";
     }
 
-    switchBoxCheck()
+    switchBoxCheck();
 
     orderMessage.innerHTML = "Deine Testbestellung ist eingegangen!"
 
-    refreshCart();
+    refreshBasket();
 }
 
 function switchBoxCheck() {
@@ -194,24 +173,13 @@ function switchBoxCheck() {
     }
 }
 
-//hier
 function renderRespBasket() {
-    let respBasket = document.getElementById("resp_Cart");
+    let respBasket = document.getElementById("resp_basket");
     respBasket.innerHTML = respBasketContent();
-}
 
-function showRespCart() {
     let overlayRef = document.getElementById("overlay");
-    overlayRef.innerHTML = "";
-    toggleOverlay();
-    overlayRef.innerHTML = getDialog()
-
+    overlayRef.innerHTML = getDialog();
 }
-
-// function renderOverlay() {
-//     let respBasket = document.getElementById("resp_Cart");
-//     respBasket.innerHTML = respBasketContent();
-// }
 
 function toggleOverlay() {
     let overlayRef = document.getElementById("overlay")

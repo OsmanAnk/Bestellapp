@@ -66,4 +66,4 @@ let myDishes = {
 }
 
 
-let shoppingCart = []
+let basket = []

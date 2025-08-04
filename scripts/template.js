@@ -6,6 +6,24 @@ function headerContent() {
             `
 }
 
+function allContent() {
+    return `    <div class="allContainer">
+                    <div class="mainContent">
+                        <div id="titleContent"></div>
+                        <div id="menuBarContent"></div>                 
+                        <div id="pizzaContent"></div>
+                        <div id="pizzaDishContent"></div>
+                        <div id="pastaContent"></div>
+                        <div id="pastaDishContent"></div>
+                        <div id="saladContent"></div>
+                        <div id="saladDishContent"></div>
+                        <div id="resp_basket" class="resp_basket_box"></div>
+                    </div>
+                    <div id="basket" class="basket_box"></div>
+                </div>
+            `
+}
+
 function basketContent() {
     return `    <div class="basketContainer">
                     <span class="basketTitle">Warenkorb</span>
@@ -23,11 +41,11 @@ function basketContent() {
                         <div class="costContainer">
                             <div class="costSubtotalContainer">
                                 <div>Zwischensumme</div>
-                                <div id="subtotalCost"></div>
+                                <div id="subtotalCost">0,00 €</div>
                             </div>
                             <div class="costSubtotalContainer">
-                                <div>Belieferkosten</div>
-                                <div id="deliveryCost"></div>
+                                <div>Lieferkosten</div>
+                                <div id="deliveryCost">0,00 €</div>
                             </div>
                         </div>
                         <div class="totalCostContainer">
@@ -35,14 +53,14 @@ function basketContent() {
                             <div id="totalCost"></div>                       
                         </div>
                         <div class="line"></div>     
-                        <button class="orderButton" onclick="orderAndEmptyCart()">Jetzt bestellen</button>
+                        <button class="orderButton" onclick="orderAndEmptyBasket()">Jetzt bestellen</button>
                         <div class="orderMessage" id="orderMessage"></div>
                     </div>
                 </div>
             `
 }
 
-function cartContent(name, price, amount, indexDishes) {
+function basketData(name, price, amount, indexDishes) {
     return `    <div class="orderContainerStyle">
                     <p class="orderContainerName">${name}</p>
                     <div class="orderContainerAmountPrice">
@@ -54,24 +72,6 @@ function cartContent(name, price, amount, indexDishes) {
                         <p>${(price * amount).toFixed(2)} €</p>
                         <img onclick="deleteDish(${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
                     </div>
-                </div>
-            `
-}
-
-function allContent() {
-    return `    <div class="allContainer">
-                    <div class="mainContent">
-                        <div id="titleContent"></div>
-                        <div id="menuBarContent"></div>                 
-                        <div id="pizzaContent"></div>
-                        <div id="pizzaDishContent"></div>
-                        <div id="pastaContent"></div>
-                        <div id="pastaDishContent"></div>
-                        <div id="saladContent"></div>
-                        <div id="saladDishContent"></div>
-                        <div id="resp_Cart" class="resp_cart_box"></div>
-                    </div>
-                    <div id="Cart" class="cart_box"></div>
                 </div>
             `
 }
@@ -115,7 +115,7 @@ function getPizzaDishes(category, indexDishes) {
 
                         <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
+                    <button class="addButton" onclick="addToBasket('${category}', ${indexDishes})">+</button>
                 </div>
             `
 }
@@ -139,7 +139,7 @@ function getPastaDishes(category, indexDishes) {
 
                         <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
+                    <button class="addButton" onclick="addToBasket('${category}', ${indexDishes})">+</button>
                 </div>
             `
 }
@@ -163,41 +163,52 @@ function getSaladDishes(category, indexDishes) {
 
                         <div class="dishPrice">${myDishes[category][indexDishes].price.toFixed(2).replace(".", ",")} €</div>
                     </div>
-                    <button class="addButton" onclick="addToCart('${category}', ${indexDishes})">+</button>
+                    <button class="addButton" onclick="addToBasket('${category}', ${indexDishes})">+</button>
                 </div>
             `
 }
 
 function respBasketContent() {
     return `   <div>
-                <button class="cartButton" onclick="showRespCart()">Warenkorb</button>
+                <button class="basketButton" onclick="toggleOverlay()">Warenkorb</button>
                 </div>
             `
 }
 
-function overlayBasket() {
-    return `   <div>
-
-                </div>
-            `
-}
-
-
-function getDialog(name, price, amount, indexDishes) {
+function getDialog() {
     return `  <div class="dialogWindow" onclick="eventBubbling(event)"> 
-                <button class="cartButtonDialog" onclick="showRespCart()">Warenkorb</button>
-                <div class="orderContainerStyle">
-                    <p class="orderContainerName">${name}</p>
-                    <div class="orderContainerAmountPrice">
-                        <div class="orderContainerAmount">
-                            <button class="amountButton" onclick="decreaseAmount(${indexDishes})">-</button>
-                            <span>${amount} x </span>
-                            <button class="amountButton" onclick="increaseAmount(${indexDishes})">+</button>
+                <button class="basketButtonDialog" onclick="toggleOverlay()">Warenkorb</button>
+                <div class="basketContainer">
+                    <div class="orderCostContainer">
+                        <div class="orderContainer" id="orderContainerDialog"></div>
+                        <div class="line"></div>
+                        <div class="switchContainer">
+                            <span>Liefern lassen</span>
+                            <label class="switch">
+                                <input type="checkbox" id="switchBox" onchange="deliveryCalc()">
+                                <span class="pickup round"></span>
+                            </label>
                         </div>
-                        <p>${(price * amount).toFixed(2)} €</p>
-                        <img onclick="deleteDish(${indexDishes})" class="binIcon" src="./assets/icons/bin.png" alt="bin">
+                        <div class="line"></div>
+                        <div class="costContainer">
+                            <div class="costSubtotalContainer">
+                                <div>Zwischensumme</div>
+                                <div id="subtotalCost"></div>
+                            </div>
+                            <div class="costSubtotalContainer">
+                                <div>Lieferkosten</div>
+                                <div id="deliveryCost"></div>
+                            </div>
+                        </div>
+                        <div class="totalCostContainer">
+                            <div>Gesamt</div>
+                            <div id="totalCost"></div>                       
+                        </div>
+                        <div class="line"></div>     
+                        <button class="orderButton" onclick="orderAndEmptyBasket()">Jetzt bestellen</button>
+                        <div class="orderMessage" id="orderMessage"></div>
                     </div>
                 </div>
-            </div>
+            </div>                
             `
 }
