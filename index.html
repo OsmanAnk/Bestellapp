@@ -16,16 +16,140 @@
     <link rel="stylesheet" href="./styles/basket.css">
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/standard.css">
-
 </head>
 
 <body onload="init()">
 
     <div class="wrapper">
-        <header id="header" class="header"></header>
-        <main id="mainContent"></main>
-        <footer></footer>
-        <div id="overlay" class="overlay d_none" onclick="toggleOverlay()"></div>
+        <header id="header" class="header">
+            <div class="headerContainer">
+                <img src="./assets/img/Logo.png" alt="">
+                <img class="hamburger_menu" src="./assets/icons/Hamburger_icon.svg" alt="MENU"></img>
+            </div>
+        </header>
+        <main id="mainContent">
+            <div class="allContainer">
+                <div class="mainContent">
+                    <div>
+                        <img class="main_img" src="./assets/img/main_img.jpg" alt="titleImage">
+                        <div class="titleContainer">
+                            <h1>Cheesy Business</h1>
+                            <span class="rating">Bewertung (4,2 von 5 Sternen)</span>
+                            <img class="overlay_img" src="./assets/img/pizza_top.png" alt="overlayImage">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="menuBarContainer">
+                            <img class="menuBarImg" src="./assets/img/menuBar_img.png" alt="">
+                            <a href="#pizzaContent">Pizzen</a>
+                            <a href="#pastaContent">Pasta</a>
+                            <a href="#saladContent">Salate</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pizzaSaladContainer">
+                            <img class="pizzaImg" src="./assets/img/main_pizza_img.jpg" alt="">
+                            <a>Pizzen</a>
+                        </div>
+                    </div>
+                    <div id="pizzaDishContent"></div>
+                    <div>
+                        <div class="pizzaSaladContainer">
+                            <img class="pastaImg" src="./assets/img/main_pasta_img.jpg" alt="">
+                            <a>Pasta</a>
+                        </div>
+                    </div>
+                    <div id="pastaDishContent"></div>
+                    <div>
+                        <div class="pizzaSaladContainer">
+                            <img class="saladImg" src="./assets/img/main_salad_img.jpg" alt="">
+                            <a>Salate</a>
+                        </div>
+                    </div>
+                    <div id="saladDishContent"></div>
+                    <div id="resp_basket" class="resp_basket_box">
+                        <div>
+                            <button class="basketButton" onclick="toggleOverlay()">Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="basket_box">
+                    <div class="basketContainer">
+                        <span class="basketTitle">Warenkorb</span>
+                        <div class="orderCostContainer">
+                            <div class="line"></div>
+                            <div class="orderContainer" id="orderContainer"></div>
+                        </div>
+                        <div class="costSection">
+                            <div class="switchContainer">
+                                <span>Liefern lassen</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="switchBox" onchange="deliveryCalc()">
+                                    <span class="pickup round"></span>
+                                </label>
+                            </div>
+                            <div class="line"></div>
+                            <div class="costContainer">
+                                <div class="costSubtotalContainer">
+                                    <div>Zwischensumme</div>
+                                    <div id="subtotalCost">0,00 €</div>
+                                </div>
+                                <div class="costSubtotalContainer">
+                                    <div>Lieferkosten</div>
+                                    <div id="deliveryCost">0,00 €</div>
+                                </div>
+                            </div>
+                            <div class="totalCostContainer">
+                                <div>Gesamt</div>
+                                <div id="totalCost">0,00 €</div>
+                            </div>
+                            <div class="line"></div>
+                            <button class="orderButton" onclick="orderAndEmptyBasket()">Jetzt bestellen</button>
+                            <div class="orderMessage" id="orderMessage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    </main>
+    <footer></footer>
+    <div id="overlay" class="overlay d_none" onclick="toggleOverlay()">
+        <div class="dialogWindow" onclick="eventBubbling(event)">
+            <button class="basketButtonDialog" onclick="toggleOverlay()">Warenkorb</button>
+            <div class="basketContainer">
+                <div class="orderCostContainer">
+                    <div class="orderContainer" id="orderContainerDialog"></div>
+                    <div class="line"></div>
+                    <div class="switchContainer">
+                        <span>Liefern lassen</span>
+                        <label class="switch">
+                            <input type="checkbox" id="switchBoxOverlay" onchange="deliveryCalc()">
+                            <span class="pickup round"></span>
+                        </label>
+                    </div>
+                    <div class="line"></div>
+                    <div class="costContainer">
+                        <div class="costSubtotalContainer">
+                            <div>Zwischensumme</div>
+                            <div id="subtotalCostOverlay">0,00 €</div>
+                        </div>
+                        <div class="costSubtotalContainer">
+                            <div>Lieferkosten</div>
+                            <div id="deliveryCostOverlay">0,00 €</div>
+                        </div>
+                    </div>
+                    <div class="totalCostContainer">
+                        <div>Gesamt</div>
+                        <div id="totalCostOverlay">0,00 €</div>
+                    </div>
+                    <div class="line"></div>
+                    <button class="orderButton" onclick="orderAndEmptyBasket()">Jetzt bestellen</button>
+                    <div class="orderMessage" id="orderMessageOverlay"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 
