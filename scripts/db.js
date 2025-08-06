@@ -1,5 +1,5 @@
 let myDishes = {
-    "Pizza": [
+    "pizza": [
         {
             "name": "Pizza Caprese",
             "price": 12.99,
@@ -20,7 +20,7 @@ let myDishes = {
         },
     ],
 
-    "Pasta": [
+    "pasta": [
         {
             "name": "Pasta Veggio",
             "price": 10.49,
@@ -41,7 +41,7 @@ let myDishes = {
         }
     ],
 
-    "Salad": [
+    "salad": [
         {
             "name": "Salat Caesar's Chicken",
             "price": 10.49,
@@ -62,7 +62,7 @@ let myDishes = {
         }
     ],
 
-    
+
 }
 
 

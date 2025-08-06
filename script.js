@@ -1,81 +1,32 @@
 function init() {
-    renderContent()
-    renderPizza();
-    renderSalad();
-    renderPasta();
-    renderRespBasket();
+    renderDishes();
 }
 
-function renderContent() {
-    let header = document.getElementById("header");
-    header.innerHTML = headerContent();
+function renderDishes() {
+    for (let index = 0; index < Object.entries(myDishes).length; index++) {
 
-    let content = document.getElementById("mainContent");
-    content.innerHTML = allContent();
+        let dishes = document.getElementById(Object.entries(myDishes)[index][0] + "DishContent");
+        dishes.innerHTML = "";
 
-    let basket = document.getElementById("basket");
-    basket.innerHTML = basketContent();
-
-    let title = document.getElementById("titleContent");
-    title.innerHTML = titleContent();
-
-    let menuBar = document.getElementById("menuBarContent");
-    menuBar.innerHTML = menuBarContent();
-}
-
-function renderPizza() {
-    let pizza = document.getElementById("pizzaContent")
-    pizza.innerHTML = pizzaContent();
-
-    let pizzaDishes = document.getElementById("pizzaDishContent");
-    pizzaDishes.innerHTML = "";
-
-    for (let indexDishes = 0; indexDishes < myDishes.Pizza.length; indexDishes++) {
-        pizzaDishes.innerHTML += getPizzaDishes("Pizza", indexDishes);
-    }
-}
-
-function renderPasta() {
-    let pasta = document.getElementById("pastaContent")
-    pasta.innerHTML = pastaContent();
-
-    let pastaDishes = document.getElementById("pastaDishContent");
-    pastaDishes.innerHTML = "";
-
-    for (let indexDishes = 0; indexDishes < myDishes.Pasta.length; indexDishes++) {
-        pastaDishes.innerHTML += getPastaDishes("Pasta", indexDishes);
-    }
-}
-
-function renderSalad() {
-    let salad = document.getElementById("saladContent")
-    salad.innerHTML = saladContent();
-
-    let saladDishes = document.getElementById("saladDishContent");
-    saladDishes.innerHTML = "";
-
-    for (let indexDishes = 0; indexDishes < myDishes.Salad.length; indexDishes++) {
-        saladDishes.innerHTML += getSaladDishes("Salad", indexDishes);
+        for (let indexDishes = 0; indexDishes < myDishes[Object.entries(myDishes)[index][0]].length; indexDishes++) {
+            dishes.innerHTML += getDishes(Object.entries(myDishes)[index][0], indexDishes);
+        }
     }
 }
 
 function addToBasket(category, indexDishes) {
     let dish = myDishes[category][indexDishes];
-
     let basketIndex = basket.findIndex(element => element.name == dish.name)
 
     if (basketIndex !== -1) {
         basket[basketIndex].amount++;
-    }
-
-    else {
+    } else {
         basket.push({
             name: dish.name,
             price: dish.price,
             amount: 1
         });
     }
-
     refreshBasket();
 }
 
@@ -110,11 +61,14 @@ function refreshBasket() {
         }
     }
     subtotalCalc();
+    deliveryCalc();
     totalCostCalc();
 }
 
 function subtotalCalc() {
     let subtotalRef = document.getElementById("subtotalCost");
+    let subtotalOverlayRef = document.getElementById("subtotalCostOverlay");
+
     let subtotal = 0;
 
     for (let i = 0; i < basket.length; i++) {
@@ -122,63 +76,96 @@ function subtotalCalc() {
     }
 
     subtotalRef.innerHTML = subtotal.toFixed(2).replace(".", ",") + " €";
+    subtotalOverlayRef.innerHTML = subtotal.toFixed(2).replace(".", ",") + " €";
 }
 
 function deliveryCalc() {
-    let deliveryRef = document.getElementById("deliveryCost");
     let switchBoxRef = document.getElementById("switchBox");
+    let switchBoxOverlayRef = document.getElementById("switchBoxOverlay");
 
-    if (switchBoxRef.checked) {
+    delivery = switchBoxRef.checked || switchBoxOverlayRef.checked;
+
+    setDeliveryCost(delivery);
+    totalCostCalc();
+}
+
+function setDeliveryCost(delivery) {
+    let deliveryRef = document.getElementById("deliveryCost");
+    let deliveryOverlayRef = document.getElementById("deliveryCostOverlay");
+
+    if (delivery) {
         deliveryRef.innerHTML = "+4,99 €";
+        deliveryOverlayRef.innerHTML = "+4,99 €";
     }
     else {
         deliveryRef.innerHTML = "0,00 €";
+        deliveryOverlayRef.innerHTML = "0,00 €";
     }
 }
 
 function totalCostCalc() {
     let totalCostRef = document.getElementById("totalCost");
-    let deliveryRef = document.getElementById("deliveryCost");
+    let totalCostOverlayRef = document.getElementById("totalCostOverlay");
+
     let subtotalRef = document.getElementById("subtotalCost");
 
-    let delivery = Number(deliveryRef.innerText.replace(/[^\d,\.]/g, '').replace(",", "."));
     let subtotal = Number(subtotalRef.innerText.replace(/[^\d,\.]/g, '').replace(",", "."));
 
-    let total = delivery + subtotal;
+    let total = subtotal + deliverySwitchCalc();
+    let totalOverlay = subtotal + deliverySwitchOverlayCalc();
 
     totalCostRef.innerHTML = total.toFixed(2).replace(".", ",") + " €"
+    totalCostOverlayRef.innerHTML = totalOverlay.toFixed(2).replace(".", ",") + " €";
+}
+
+function deliverySwitchCalc() {
+    let switchBoxRef = document.getElementById("switchBox");
+
+    let delivery;
+    if (switchBoxRef.checked) {
+        return delivery = 4.99;
+    } else {
+        return delivery = 0;
+    }
+}
+
+function deliverySwitchOverlayCalc() {
+    let switchBoxOverlayRef = document.getElementById("switchBoxOverlay");
+
+    let delivery;
+    if (switchBoxOverlayRef.checked) {
+        return delivery = 4.99;
+    } else {
+        return delivery = 0;
+    }
 }
 
 function orderAndEmptyBasket() {
     let orderMessage = document.getElementById("orderMessage");
+    let orderMessageOverlay = document.getElementById("orderMessageOverlay");
+
     orderMessage.innerHTML = "";
+    orderMessageOverlay.innerHTML = "";
 
     for (let i = 0; i < basket.length; i++) {
         basket[i].amount = "";
     }
 
     switchBoxCheck();
-
     orderMessage.innerHTML = "Deine Testbestellung ist eingegangen!"
-
+    orderMessageOverlay.innerHTML = "Deine Testbestellung ist eingegangen!"
     refreshBasket();
 }
 
 function switchBoxCheck() {
     let switchBox = document.getElementById("switchBox")
+    let switchBoxOverlay = document.getElementById("switchBoxOverlay")
 
-    if (switchBox.checked) {
-        switchBox.checked = false
+    if (switchBox.checked || switchBoxOverlay.checked) {
+        switchBox.checked = false;
+        switchBoxOverlay.checked = false;
         deliveryCalc();
     }
-}
-
-function renderRespBasket() {
-    let respBasket = document.getElementById("resp_basket");
-    respBasket.innerHTML = respBasketContent();
-
-    let overlayRef = document.getElementById("overlay");
-    overlayRef.innerHTML = getDialog();
 }
 
 function toggleOverlay() {

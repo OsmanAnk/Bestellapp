@@ -29,7 +29,6 @@ body {
     padding-right: 24px;
 
     margin: 0 auto;
-    width: 100%;
     height: 84px;
     max-width: 1440px;
 }
@@ -61,6 +60,7 @@ footer {
 }
 
 .basket_box {
+    position: sticky;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -107,6 +107,7 @@ footer {
     position: fixed;
     height: 100vh;
     width: 100%;
+    top: 0;
 }
 
 .dialogWindow {
@@ -132,7 +133,6 @@ footer {
 
 .switchContainer {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: 8px 0;
 }

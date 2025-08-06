@@ -5,6 +5,13 @@
     top: 0;
 }
 
+.costSection {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding-bottom: 10px;
+}
+
 .basketTitle {
     padding: 12px 0;
     text-align: center;
@@ -14,6 +21,7 @@
 
 .orderCostContainer {
     padding: 0 8px;
+
 }
 
 .line {
@@ -44,6 +52,8 @@
 .orderContainer {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 362px);
 }
 
 .orderContainerStyle {

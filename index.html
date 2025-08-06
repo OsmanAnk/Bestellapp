@@ -19,14 +19,14 @@
 </head>
 
 <body onload="init()">
-
     <div class="wrapper">
         <header id="header" class="header">
             <div class="headerContainer">
                 <img src="./assets/img/Logo.png" alt="">
-                <img class="hamburger_menu" src="./assets/icons/Hamburger_icon.svg" alt="MENU"></img>
+                <img class="hamburger_menu" src="./assets/icons/Hamburger_icon.svg" alt="MENU">
             </div>
         </header>
+
         <main id="mainContent">
             <div class="allContainer">
                 <div class="mainContent">
@@ -47,21 +47,21 @@
                         </div>
                     </div>
                     <div>
-                        <div class="pizzaSaladContainer">
+                        <div id="pizzaContent" class="pizzaSaladContainer">
                             <img class="pizzaImg" src="./assets/img/main_pizza_img.jpg" alt="">
                             <a>Pizzen</a>
                         </div>
                     </div>
                     <div id="pizzaDishContent"></div>
                     <div>
-                        <div class="pizzaSaladContainer">
+                        <div id="pastaContent" class="pizzaSaladContainer">
                             <img class="pastaImg" src="./assets/img/main_pasta_img.jpg" alt="">
                             <a>Pasta</a>
                         </div>
                     </div>
                     <div id="pastaDishContent"></div>
                     <div>
-                        <div class="pizzaSaladContainer">
+                        <div id="saladContent" class="pizzaSaladContainer">
                             <img class="saladImg" src="./assets/img/main_salad_img.jpg" alt="">
                             <a>Salate</a>
                         </div>
@@ -73,6 +73,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="basket_box">
                     <div class="basketContainer">
                         <span class="basketTitle">Warenkorb</span>
@@ -110,10 +111,10 @@
                     </div>
                 </div>
             </div>
+        </main>
+        <footer></footer>
     </div>
-    </div>
-    </main>
-    <footer></footer>
+
     <div id="overlay" class="overlay d_none" onclick="toggleOverlay()">
         <div class="dialogWindow" onclick="eventBubbling(event)">
             <button class="basketButtonDialog" onclick="toggleOverlay()">Warenkorb</button>
@@ -149,7 +150,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 
